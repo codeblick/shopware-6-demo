@@ -1,6 +1,6 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/codeblick/shopware-6-demo.svg)](https://hub.docker.com/r/codeblick/shopware-6-demo/)
 [![Docker Stars](https://img.shields.io/docker/stars/codeblick/shopware-6-demo.svg)](https://hub.docker.com/r/codeblick/shopware-6-demo/)
-[![CircleCI](https://circleci.com/gh/codeblick/shopware-6-demo/tree/main.svg?style=svg)](https://circleci.com/gh/codeblick/shopware-6-demo/tree/main)
+![CircleCI](https://img.shields.io/circleci/build/gh/codeblick/shopware-6-demo/main)
 
 # codeblick/shopware-6-demo
 
