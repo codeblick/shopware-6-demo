@@ -53,7 +53,7 @@ else
     if [ -z "${COB_APP_NAME}" ]; then
         echo "No app was selected for installation."
     else
-        sudo -u www-data -E bin/console app:install --activate ${COB_APP_NAME}
+        sudo -u www-data -E bin/console app:install --force --activate ${COB_APP_NAME}
     fi
 
     for i in `/bin/ls -1 /migrations/*.sql`; do
