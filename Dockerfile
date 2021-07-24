@@ -31,10 +31,11 @@ ENV SW_VERSION=${COB_SW_VERSION}
 
 RUN cd /var/www/html && \
     git clone -b ${SW_VERSION} https://github.com/shopware/production.git . && \
-    composer install --no-scripts --no-cache && \
-    mkdir /migrations
+    composer install --no-scripts --no-cache
     
 USER root
+
+RUN mkdir /migrations
 
 COPY ./scripts/setup-shopware.sh /usr/local/bin/setup-shopware
 RUN chmod +x /usr/local/bin/setup-shopware
