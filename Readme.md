@@ -3,11 +3,17 @@
 
 # codeblick/shopware-6-demo
 
-This image is based on the codeblick/shopware-6:php-8.0 image.
+This docker image is based on the codeblick/shopware-6:php-8.0 image.
 
 ## Supported tags
 
+Newer versions will be added automatically, so this list is probably not complete.
+
 - v6.4.2.1
+- v6.4.2.0
+- v6.4.1.2
+- v6.4.1.1
+- v6.4.1.0
 
 ## Environment variables
 
