@@ -1,0 +1,30 @@
+version: 2
+jobs:
+  build_on_push:
+    machine: true
+    steps:
+      - checkout
+      - run: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+      - run: ./.circleci/build.sh
+
+  build_latest:
+    machine: true
+    steps:
+      - checkout
+      - run: echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+      - run: ./.circleci/build-latest.sh
+
+workflows:
+  version: 2
+
+  build_on_push:
+    jobs:
+      - build_on_push:
+          context: docker
+
+  build_latest:
+    triggers:
+      - schedule:
+          cron: "0 10 * * 1-5"
+    jobs:
+      - build_latest
