@@ -5,7 +5,7 @@ build() {
     echo "Building Shopware ${1}"
     docker build . \
         -t codeblick/shopware-6-demo:${1} \
-        --build-arg COB_SW_VERSION=${1}
+        --build-arg COB_SW_VERSION=${1} \
         -q
 
     echo "Pushing Shopware ${1}"
