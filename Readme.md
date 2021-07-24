@@ -44,7 +44,7 @@ services:
       - COB_APP_NAME=CobExampleApp
     volumes:
       - ./src/CobExample:/var/www/html/custom/plugins/CobExample
-      - ./src/CobExamplApp:/var/www/html/custom/apps/CobExampleApp
+      - ./src/CobExamplEApp:/var/www/html/custom/apps/CobExampleApp
       - ./src/migrations:/migrations
     ports:
       - 80:80
