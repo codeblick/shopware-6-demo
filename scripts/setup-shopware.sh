@@ -59,6 +59,8 @@ else
     for i in `/bin/ls -1 /migrations/*.sql`; do
         mysql -u root -h localhost ${MYSQL_DATABASE} < ${i}
     done
+    
+    sudo -u www-data -E bin/console cache:clear
 fi
 
 /usr/sbin/apache2ctl -DFOREGROUND
