@@ -20,5 +20,7 @@ do
     build $TAG
 done
 
-docker tag codeblick/shopware-6-demo:$(echo $TAGS | head -n 1) codeblick/shopware-6-demo
+LATEST_TAG=$(echo $TAGS | awk '{print $1;}')
+
+docker tag codeblick/shopware-6-demo:${LATEST_TAG} codeblick/shopware-6-demo
 docker push codeblick/shopware-6-demo
