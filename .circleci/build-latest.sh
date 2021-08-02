@@ -19,3 +19,6 @@ for TAG in $TAGS
 do
     build $TAG
 done
+
+docker tag codeblick/shopware-6-demo:$(echo $TAGS | head -n 1) codeblick/shopware-6-demo
+docker push codeblick/shopware-6-demo
