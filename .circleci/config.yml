@@ -31,4 +31,5 @@ workflows:
               only:
                 - main
     jobs:
-      - build_latest
+      - build_latest:
+          context: docker
