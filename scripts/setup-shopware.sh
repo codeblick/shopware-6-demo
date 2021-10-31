@@ -3,6 +3,9 @@ set -e
 
 if [ -d /var/lib/mysql/${MYSQL_DATABASE} ] ; then
     echo "Shopware is already installed."
+    
+    mkdir -p /var/run/mysqld
+    chown -R mysql /var/run/mysqld
     mysqld &
 
     wait-for-it ${MYSQL_HOST}:${MYSQL_PORT}
