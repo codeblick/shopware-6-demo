@@ -36,14 +36,16 @@ else
             --no-interaction
 
         bin/console system:install --create-database --basic-setup --no-interaction
-
-        bin/console store:download -p SwagPlatformDemoData
-        bin/console plugin:install --activate SwagPlatformDemoData
     "
     
     if [ -n "$SKIP_DEMO" ]; then
         echo "Installing Demo was skipped!"
     else
+        sudo -u www-data -E bash -c "
+            bin/console store:download -p SwagPlatformDemoData
+            bin/console plugin:install --activate SwagPlatformDemoData
+        "
+
         mysql -u root -h localhost -e "
             USE ${MYSQL_DATABASE};
             INSERT INTO system_config (id,configuration_key,configuration_value,sales_channel_id,created_at,updated_at) VALUES
