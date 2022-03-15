@@ -40,23 +40,27 @@ else
         bin/console store:download -p SwagPlatformDemoData
         bin/console plugin:install --activate SwagPlatformDemoData
     "
-
-    mysql -u root -h localhost -e "
-        USE ${MYSQL_DATABASE};
-        INSERT INTO system_config (id,configuration_key,configuration_value,sales_channel_id,created_at,updated_at) VALUES
-	    (0x68832B34D0324BC7A17CA65DA4196900,'core.frw.completedAt','{\"_value\":\"2021-07-24T11:21:08+00:00\"}',NULL,'2021-07-24 11:21:08.054',NULL);
-    "
-
-    if [ -z "${COB_PLUGIN_NAME}" ]; then
-        echo "No plugin was selected for installation."
+    
+    if [ -n "$SKIP_DEMO" ]; then
+        echo "Installing Demo was skipped!"
     else
-        sudo -u www-data -E bin/console plugin:install --activate ${COB_PLUGIN_NAME}
-    fi
+        mysql -u root -h localhost -e "
+            USE ${MYSQL_DATABASE};
+            INSERT INTO system_config (id,configuration_key,configuration_value,sales_channel_id,created_at,updated_at) VALUES
+	        (0x68832B34D0324BC7A17CA65DA4196900,'core.frw.completedAt','{\"_value\":\"2021-07-24T11:21:08+00:00\"}',NULL,'2021-07-24 11:21:08.054',NULL);
+        "
 
-    if [ -z "${COB_APP_NAME}" ]; then
-        echo "No app was selected for installation."
-    else
-        sudo -u www-data -E bin/console app:install --force --activate ${COB_APP_NAME}
+        if [ -z "${COB_PLUGIN_NAME}" ]; then
+            echo "No plugin was selected for installation."
+        else
+            sudo -u www-data -E bin/console plugin:install --activate ${COB_PLUGIN_NAME}
+        fi
+    
+        if [ -z "${COB_APP_NAME}" ]; then
+            echo "No app was selected for installation."
+        else
+            sudo -u www-data -E bin/console app:install --force --activate ${COB_APP_NAME}
+        fi
     fi
 
     for i in `/bin/ls -1 /migrations/*.sql`; do
