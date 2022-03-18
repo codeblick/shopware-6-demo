@@ -1,4 +1,4 @@
-FROM codeblick/shopware-6:php-8.0
+FROM codeblick/shopware-6:php-8.1
 
 ENV MYSQL_USER=shopware
 ENV MYSQL_PASSWORD=7Iuagg3or7O4
