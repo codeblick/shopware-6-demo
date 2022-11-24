@@ -16,13 +16,25 @@ USER root
 COPY ./scripts/wait-for-it.sh /usr/local/bin/wait-for-it
 RUN chmod +x /usr/local/bin/wait-for-it
 
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    wget https://repo.mysql.com/mysql-apt-config_0.8.24-1_all.deb && \
+    apt install -y ./mysql-apt-config_*_all.deb && \
+    rm ./mysql-apt-config_*_all.deb
+
 RUN apt update
+
+RUN echo "mysql-community-server mysql-community-server/root-pass password root" | debconf-set-selections
+RUN echo "mysql-community-server mysql-community-server/re-root-pass password root" | debconf-set-selections
+RUN echo "mysql-community-server mysql-server/default-auth-override select Use Legacy Authentication Method (Retain MySQL 5.x Compatibility)" | debconf-set-selections
+
 RUN apt install -y \
-        mariadb-server \
+        mysql-server \
         sudo \
         git
         
-RUN sed -Ei 's/bind-address.*/bind-address=0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf
+# RUN sed -Ei 's/bind-address.*/bind-address=0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
+RUN echo "bind-address=0.0.0.0" >> /etc/mysql/mysql.conf.d/mysqld.cnf
+RUN echo "log_bin_trust_function_creators=1" >> /etc/mysql/mysql.conf.d/mysqld.cnf
 
 USER www-data
 

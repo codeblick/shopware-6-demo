@@ -6,17 +6,17 @@ if [ -d /var/lib/mysql/${MYSQL_DATABASE} ] ; then
     
     mkdir -p /var/run/mysqld
     chown -R mysql /var/run/mysqld
-    mysqld &
+    mysqld --user=root &
 
     wait-for-it ${MYSQL_HOST}:${MYSQL_PORT}
 else
     mkdir -p /var/run/mysqld
     chown -R mysql /var/run/mysqld
-    mysqld &
+    mysqld --user=root &
 
     wait-for-it ${MYSQL_HOST}:${MYSQL_PORT}
 
-    mysql -u root -h localhost -e "
+    mysql -u root -proot -h localhost -e "
         CREATE DATABASE ${MYSQL_DATABASE};
         CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
         GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE} . * TO '${MYSQL_USER}'@'%';
@@ -46,7 +46,7 @@ else
             bin/console plugin:install --activate SwagPlatformDemoData
         "
 
-        mysql -u root -h localhost -e "
+        mysql -u root -proot -h localhost -e "
             USE ${MYSQL_DATABASE};
             INSERT INTO system_config (id,configuration_key,configuration_value,sales_channel_id,created_at,updated_at) VALUES
 	        (0x68832B34D0324BC7A17CA65DA4196900,'core.frw.completedAt','{\"_value\":\"2021-07-24T11:21:08+00:00\"}',NULL,'2021-07-24 11:21:08.054',NULL);
@@ -66,7 +66,7 @@ else
     fi
 
     for i in `/bin/ls -1 /migrations/*.sql`; do
-        mysql -u root -h localhost ${MYSQL_DATABASE} < ${i}
+        mysql -u root -proot -h localhost ${MYSQL_DATABASE} < ${i}
     done
     
     sudo -u www-data -E bin/console cache:clear
