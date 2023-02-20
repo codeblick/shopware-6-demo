@@ -1,4 +1,4 @@
-FROM codeblick/shopware-6:php-8.1
+FROM codeblick/shopware-6:php-8.2
 
 ENV MYSQL_USER=shopware
 ENV MYSQL_PASSWORD=7Iuagg3or7O4
@@ -28,10 +28,10 @@ RUN echo "mysql-community-server mysql-community-server/re-root-pass password ro
 RUN echo "mysql-community-server mysql-server/default-auth-override select Use Legacy Authentication Method (Retain MySQL 5.x Compatibility)" | debconf-set-selections
 
 RUN apt install -y \
-        mysql-server \
-        sudo \
-        git
-        
+    mysql-server \
+    sudo \
+    git
+
 # RUN sed -Ei 's/bind-address.*/bind-address=0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
 RUN echo "bind-address=0.0.0.0" >> /etc/mysql/mysql.conf.d/mysqld.cnf
 RUN echo "log_bin_trust_function_creators=1" >> /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -44,7 +44,7 @@ ENV SW_VERSION=${COB_SW_VERSION}
 RUN cd /var/www/html && \
     git clone -b ${SW_VERSION} https://github.com/shopware/production.git . && \
     composer install --no-scripts --no-cache
-    
+
 USER root
 
 RUN mkdir /migrations

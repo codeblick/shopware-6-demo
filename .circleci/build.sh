@@ -13,7 +13,7 @@ build() {
 }
 
 LATEST=5
-TAGS=$(git ls-remote --tags --refs https://github.com/shopware/production.git | sed -n 's_^.*/\([^/}]*\)$_\1_p' | sort -Vr | sed -n 1,${LATEST}p)
+TAGS=$(curl -s https://api.github.com/repos/shopware/production/branches?per_page=100 | jq -r '.[] | select(.name | test("^\\d{1,2}\\.\\d{1,2}\\.\\d{1,2}\\.\\d{1,2}")) | .name' | sort -Vr | sed -n 1,${LATEST}p)
 
 for TAG in $TAGS
 do
