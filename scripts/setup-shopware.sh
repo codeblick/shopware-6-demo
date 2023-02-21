@@ -8,11 +8,15 @@ if [ -d /var/lib/mysql/${MYSQL_DATABASE} ] ; then
     chown -R mysql /var/run/mysqld
     mysqld --user=root &
 
+    sleep 2
+
     wait-for-it ${MYSQL_HOST}:${MYSQL_PORT}
 else
     mkdir -p /var/run/mysqld
     chown -R mysql /var/run/mysqld
     mysqld --user=root &
+
+    sleep 2
 
     wait-for-it ${MYSQL_HOST}:${MYSQL_PORT}
 
@@ -24,6 +28,7 @@ else
     "
 
     cd /var/www/html
+    rm .env
 
     sudo -u www-data -E bash -c "
         bin/console system:setup \
