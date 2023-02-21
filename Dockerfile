@@ -42,8 +42,7 @@ ARG COB_SW_VERSION
 ENV SW_VERSION=${COB_SW_VERSION}
 
 RUN cd /var/www/html && \
-    git clone -b ${SW_VERSION} https://github.com/shopware/production.git . && \
-    composer install --no-scripts --no-cache
+    composer create-project shopware/production:${SW_VERSION}-flex .
 
 USER root
 
