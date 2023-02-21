@@ -42,7 +42,7 @@ ARG COB_SW_VERSION
 ENV SW_VERSION=${COB_SW_VERSION}
 
 RUN cd /var/www/html && \
-    composer create-project shopware/production:${SW_VERSION}-flex .
+    composer create-project shopware/production:${SW_VERSION}-dev .
 
 USER root
 
