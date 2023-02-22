@@ -28,7 +28,7 @@ else
     "
 
     cd /var/www/html
-    rm .env
+    rm -f .env
 
     sudo -u www-data -E bash -c "
         bin/console system:setup \

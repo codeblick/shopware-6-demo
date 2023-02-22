@@ -11,6 +11,8 @@ ENV SW_URL=http://localhost
 ENV SW_CACHE=0
 ENV SW_MAILER=smtp://mailhog:1025
 
+ENV LOCK_DSN flock
+
 USER root
 
 COPY ./scripts/wait-for-it.sh /usr/local/bin/wait-for-it
