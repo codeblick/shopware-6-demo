@@ -40,7 +40,15 @@ else
             --mailer-url=${SW_MAILER} \
             --no-interaction
 
-        bin/console system:install --create-database --basic-setup --no-interaction
+        bin/console system:install \
+            --create-database \
+            --basic-setup \
+            --no-interaction \
+            --shop-name=codeblick \
+            --shop-email=dev@codeblick.de \
+            --shop-locale=de_DE \
+            --shop-currency=EUR \
+            --force
     "
     
     if [ -n "$SKIP_DEMO" ]; then
