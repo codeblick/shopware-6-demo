@@ -7,6 +7,9 @@ USER www-data
 ARG SW_VERSION
 
 RUN cd /var/www/html && \
-    composer create-project shopware/production . $SW_VERSION --no-scripts
+    composer create-project --no-install shopware/production . $SW_VERSION; \
+    jq '."minimum-stability" = "RC"' composer.json > composer.json.tmp; \
+    mv composer.json.tmp composer.json; \
+    composer install --no-scripts --no-interaction
 
 USER root
