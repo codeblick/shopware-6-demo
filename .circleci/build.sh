@@ -12,7 +12,7 @@ build() {
         PHP_VERSION=8.3
     fi
 
-    docker build -t codeblick/shopware-6-demo:$1 --build-arg PHP_VERSION=$PHP_VERSION --build-arg SW_VERSION=$1 .
+    docker build -q -t codeblick/shopware-6-demo:$1 --build-arg PHP_VERSION=$PHP_VERSION --build-arg SW_VERSION=$1 .
     docker push codeblick/shopware-6-demo:$1
 }
 
