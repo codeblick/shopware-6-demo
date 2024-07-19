@@ -16,7 +16,7 @@ build() {
     docker push codeblick/shopware-6-demo:$1
 }
 
-TAGS=$(curl -s https://api.github.com/repos/shopware/shopware/tags?per_page=3 | jq -r '. | reverse | .[].name') 
+TAGS=$(curl -s https://api.github.com/repos/shopware/shopware/tags?per_page=97 | jq -r '. | reverse | .[].name') 
 
 for TAG in $TAGS
 do
