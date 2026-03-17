@@ -34,7 +34,11 @@ build() {
 }
 
 curl -fsSL "$PHP_VERSION_MAP_URL" -o /tmp/php-version-map.json
-TAGS=$(curl -s https://api.github.com/repos/shopware/shopware/tags?per_page=4 | jq -r '. | reverse | .[].name') 
+TAGS=$(git ls-remote --tags --refs https://github.com/shopware/shopware.git \
+    | awk '{print $2}' \
+    | sed 's#refs/tags/##' \
+    | sort -V \
+    | tail -n 4)
 
 for TAG in $TAGS
 do
