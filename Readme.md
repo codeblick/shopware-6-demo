@@ -1,22 +1,33 @@
-[![Docker Pulls](https://img.shields.io/docker/pulls/codeblick/shopware-6-demo.svg)](https://hub.docker.com/r/codeblick/shopware-6-demo/)
-[![Docker Stars](https://img.shields.io/docker/stars/codeblick/shopware-6-demo.svg)](https://hub.docker.com/r/codeblick/shopware-6-demo/)
-![CircleCI](https://img.shields.io/circleci/build/gh/codeblick/shopware-6-demo/main)
-
 # codeblick/shopware-6-demo
 
-This docker image is based on the codeblick/shopware-6:php-8.0 image.
+Docker-Image, um schnell eine Shopware-Demo-Instanz zu starten.
 
-## Supported tags
+## Schnellstart mit docker run
 
-Newer versions will be added automatically, so this list is probably not complete.
+Eine bestimmte Shopware-Version starten:
 
-- v6.4.2.1
-- v6.4.2.0
-- v6.4.1.2
-- v6.4.1.1
-- v6.4.1.0
+```bash
+docker run --rm -it \
+  -p 80:80 \
+  codeblick/shopware-6-demo:v6.7.8.1
+```
 
-## Environment variables
+Du kannst jeden verfuegbaren Shopware-Tag verwenden, zum Beispiel v6.6.10.5 oder v6.7.8.1.
+
+Den neuesten veroeffentlichten Build starten:
+
+```bash
+docker run --rm -it \
+  -p 80:80 \
+  codeblick/shopware-6-demo
+```
+
+## Tags und Updates
+
+Neue Tags werden automatisch aus den neuesten Shopware-Releases gebaut.
+Das Image aktualisiert dabei auch den standardmaessigen latest-Tag.
+
+## Umgebungsvariablen
 
 ```dockerfile
 ENV MYSQL_USER=shopware
@@ -32,13 +43,15 @@ ENV COB_PLUGIN_NAME=
 ENV COB_APP_NAME=
 ```
 
-## Example usage
+Wenn die entsprechenden Verzeichnisse vorhanden sind, werden `COB_PLUGIN_NAME` und `COB_APP_NAME` beim Start automatisch installiert.
+
+## Beispielverwendung
 
 ```yaml
 version: "3"
 services:
   shopware:
-    image: codeblick/shopware-6-demo:v6.4.2.1
+    image: codeblick/shopware-6-demo:v6.7.8.1
     environment:
       - COB_PLUGIN_NAME=CobExample
       - COB_APP_NAME=CobExampleApp
